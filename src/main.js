@@ -6,7 +6,7 @@ const mb = menubar({
   preloadWindow: true,
   windowPosition: 'trayLeft',
   width:200,
-  eight:300,
+  height:300,
   resizable: false
 });
 mb.on('ready', function ready () {
