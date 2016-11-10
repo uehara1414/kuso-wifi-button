@@ -1,0 +1,23 @@
+{
+  "name": "kuso-wifi-button",
+  "version": "1.0.0",
+  "description": "某大学のWifiが繋がらないときに押すボタン",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeoIsaac/kuso-wifi-button.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeoIsaac/kuso-wifi-button/issues"
+  },
+  "homepage": "https://github.com/LeoIsaac/kuso-wifi-button#readme",
+  "dependencies": {
+    "menubar": "^5.1.0"
+  }
+}
