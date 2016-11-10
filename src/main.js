@@ -2,7 +2,7 @@ const menubar = require('menubar');
 
 const mb = menubar({
   dir:__dirname + '/',
-  icon:__dirname + '/bus.png',
+  icon:__dirname + '/poowifi.png',
   preloadWindow: true,
   windowPosition: 'trayLeft',
   width:200,
