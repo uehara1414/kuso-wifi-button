@@ -1,20 +1,41 @@
 const {ipcRenderer} = require('electron')
 
+var button;
 var counter; //countを表示するエリア
 var comment;
 var netStatus = navigator.onLine;
 
-window.addEventListener("online", () => {
-  netStatus = true;
-}, false);
-window.addEventListener("offline", () => {
-  netStatus = false;
-});
-
 window.onload = () => {
+  button = document.getElementById('button');
   counter = document.getElementById('counter');
   comment = document.getElementById('comment');
+
+  buttonStatus(netStatus);
 };
+
+window.addEventListener("online", () => {
+  netStatus = buttonStatus(true);
+}, false);
+window.addEventListener("offline", () => {
+  netStatus = buttonStatus(false);
+});
+
+
+/**
+ * ネットの状態によってボタンの色を変える
+ * @param {boolean} status trueでオンライン
+ * @return {boolean} paramのstatusをそのまま返す
+ */
+function buttonStatus(status) {
+  if(status) {
+    button.classList.remove('button-caution');
+    button.classList.add('button-action');
+  } else {
+    button.classList.remove('button-action');
+    button.classList.add('button-caution');
+  }
+  return status;
+}
 
 /**
  * クソWiFiボタンを押されたら実行される関数
