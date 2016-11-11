@@ -8,7 +8,8 @@ require('date-utils');
 const crypto = require('crypto');
 const sha = crypto.createHash('sha256');
 var uid = sha.update(new Date().getTime().toString()).digest('hex');
-
+const Ping = require('ping-lite');
+const ping = new Ping('8.8.8.8');
 
 var count = 0; //ボタンを押された回数
 
@@ -31,9 +32,14 @@ mb.on('ready', () => {
 ipcMain.on('button', (event, comment) => {
   count++;
   let date = new Date();
+  let pingRes;
+  ping.send((err, ms) => {
+    pingRes = ms;
+  });
   let json = {
     "uid": uid,
     "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
+    "ping": pingRes,
     "comment": comment
   };
   let options = {
