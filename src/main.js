@@ -1,5 +1,11 @@
+const config = require('config');
 const menubar = require('menubar');
 const {ipcMain} = require('electron');
+const request = require('request');
+//Dateクラスの拡張
+require('date-utils');
+
+var count = 0; //ボタンを押された回数
 
 const mb = menubar({
   dir:__dirname + '/',
@@ -17,6 +23,22 @@ mb.on('ready', () => {
 /**
  * クソボタンを押されたら実行する
  */
-ipcMain.on('button', (event, arg) => {
-  console.log(arg);
+ipcMain.on('button', (event, comment) => {
+  count++;
+  let date = new Date();
+  var options = {
+    uri: config.serverHost,
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded",
+     },
+    form: {
+      "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
+      "comment": comment
+    }
+  };
+  request.post(options, (err, res, body) =>{
+    console.log(body)
+  });
+  //カウントをフロントに投げる
+  event.sender.send('count', count);
 });

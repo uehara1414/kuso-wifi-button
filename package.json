@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/LeoIsaac/kuso-wifi-button#readme",
   "dependencies": {
-    "menubar": "^5.1.0"
+    "config": "^1.24.0",
+    "date-utils": "^1.2.21",
+    "menubar": "^5.1.0",
+    "request": "^2.78.0"
   }
 }
