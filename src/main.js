@@ -1,4 +1,5 @@
 const menubar = require('menubar');
+const {ipcMain} = require('electron');
 
 const mb = menubar({
   dir:__dirname + '/',
@@ -11,4 +12,11 @@ const mb = menubar({
 });
 mb.on('ready', function ready () {
   console.log("fun-wifi is kuso!");
+});
+
+/**
+ * クソボタンを押されたら実行する
+ */
+ipcMain.on('button', (event, arg) => {
+  console.log(arg);
 });
