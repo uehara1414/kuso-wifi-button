@@ -7,7 +7,13 @@ require('date-utils');
 //hash生成
 const crypto = require('crypto');
 const sha = crypto.createHash('sha256');
-var uid = sha.update(new Date().getTime().toString()).digest('hex');
+const uid = sha.update(new Date().getTime().toString()).digest('hex');
+//ssid
+const wifiControl = require('wifi-control');
+wifiControl.init({
+  debug: true
+});
+//ping
 const Ping = require('ping-lite');
 const ping = new Ping('8.8.8.8');
 
@@ -39,6 +45,7 @@ ipcMain.on('button', (event, comment) => {
   let json = {
     "uid": uid,
     "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
+    "ssid": wifiControl.getIfaceState()['ssid'],
     "ping": pingRes,
     "comment": comment
   };
