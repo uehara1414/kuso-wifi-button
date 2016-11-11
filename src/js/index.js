@@ -4,6 +4,7 @@ var button;
 var counter; //countを表示するエリア
 var comment;
 var netStatus = navigator.onLine;
+var localCount = 0; //ネット未接続時のボタンを押した回数
 
 window.onload = () => {
   button = document.getElementById('button');
@@ -43,6 +44,23 @@ function buttonStatus(status) {
 function kusoButton() {
   ipcRenderer.send('button', comment.value);
 }
+
+/**
+ * 送られてきたjsonを保存する
+ * @param {json} json uid,date,ssid,commentが入っている
+ */
+ipcRenderer.on('saveLog', (event, json) => {
+  localStorage.setItem(localCount++, JSON.stringify(json));
+});
+
+/**
+ * 全てのログを送り、ストレージをリセット
+ */
+ipcRenderer.on('clearLog', (event, flag) => {
+  Object.keys(localStorage).forEach((key) => {
+    ipcRenderer.send('logPush', JSON.parse(localStorage.getItem(key)));
+  });
+});
 
 /**
  * 回数が更新された時に実行される

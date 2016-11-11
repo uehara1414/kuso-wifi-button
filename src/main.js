@@ -26,11 +26,12 @@ const mb = menubar({
   windowPosition: 'trayLeft',
   width:200,
   height:300,
-  resizable: false
+  resizable: true
 });
 mb.on('ready', () => {
   console.log("fun-wifi is kuso!");
 });
+
 
 /**
  * クソボタンを押されたら実行する
@@ -38,17 +39,42 @@ mb.on('ready', () => {
 ipcMain.on('button', (event, comment) => {
   count++;
   let date = new Date();
-  let pingRes;
   ping.send((err, ms) => {
-    pingRes = ms;
+    let json = {
+      "uid": uid,
+      "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
+      "ssid": wifiControl.getIfaceState()['ssid'],
+      "ping": ms,
+      "comment": comment
+    };
+    if(!sendJson(json)) {
+      console.log("システムとのリンクの構築に失敗...蓄積");
+      event.sender.send('saveLog', json);
+    } else {
+      console.log("解放");
+      event.sender.send('clearLog', true);
+    }
   });
-  let json = {
-    "uid": uid,
-    "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
-    "ssid": wifiControl.getIfaceState()['ssid'],
-    "ping": pingRes,
-    "comment": comment
-  };
+  //カウントをフロントに投げる
+  event.sender.send('count', count);
+});
+
+
+/**
+ * 溜まったログを投げる
+ */
+ipcMain.on('logPush', (event, json) => {
+  sendJson(json);
+});
+
+
+/**
+ * kuso-wifi-serverにJSONを投げつける
+ * @param {json} json jsonだよ〜
+ * @return {boolean} 成功したらtrue
+ */
+function sendJson(json) {
+  console.log(json);
   let options = {
     uri: config.serverHost,
     headers: {
@@ -57,14 +83,8 @@ ipcMain.on('button', (event, comment) => {
     json: json
   };
   request.post(options, (err, res, body) => {
-    if(err) {
-      console.log("ログを貯める");
-      // event.sender.send('logSave', json);
-    } else {
-      console.log("貯めたログを放出して、削除する");
-    }
-    console.log(body)
+    console.log(res.statusCode);
+    if(res.statusCode == 200) return true;
+    else false;
   });
-  //カウントをフロントに投げる
-  event.sender.send('count', count);
-});
+}
