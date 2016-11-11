@@ -2,6 +2,14 @@ const {ipcRenderer} = require('electron')
 
 var counter; //countを表示するエリア
 var comment;
+var netStatus = navigator.onLine;
+
+window.addEventListener("online", () => {
+  netStatus = true;
+}, false);
+window.addEventListener("offline", () => {
+  netStatus = false;
+});
 
 window.onload = () => {
   counter = document.getElementById('counter');
