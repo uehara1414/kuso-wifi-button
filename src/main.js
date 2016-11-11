@@ -10,7 +10,7 @@ const mb = menubar({
   height:300,
   resizable: false
 });
-mb.on('ready', function ready () {
+mb.on('ready', () => {
   console.log("fun-wifi is kuso!");
 });
 
