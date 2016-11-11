@@ -26,12 +26,12 @@ mb.on('ready', () => {
 ipcMain.on('button', (event, comment) => {
   count++;
   let date = new Date();
-  var options = {
+  let options = {
     uri: config.serverHost,
     headers: {
-      "Content-type": "application/x-www-form-urlencoded",
-     },
-    form: {
+      "Content-type": "application/json",
+    },
+    json: {
       "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
       "comment": comment
     }
