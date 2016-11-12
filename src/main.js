@@ -77,7 +77,7 @@ function sendJson(json) {
   return new Promise((resolve, reject) => {
     console.log(json);
     let options = {
-      uri: config.serverHost,
+      uri: config.serverHost + '/honto-kuso',
       headers: {
         "Content-type": "application/json",
       },
