@@ -16,6 +16,7 @@ window.onload = () => {
 
 window.addEventListener("online", () => {
   netStatus = buttonStatus(true);
+  clearLog();
 }, false);
 window.addEventListener("offline", () => {
   netStatus = buttonStatus(false);
@@ -57,11 +58,18 @@ ipcRenderer.on('saveLog', (event, json) => {
  * 全てのログを送り、ストレージをリセット
  */
 ipcRenderer.on('clearLog', (event, flag) => {
+  clearLog();
+});
+
+/**
+ * ネットに再接続した時に、ローカルに保存されたログを放出する
+ */
+function clearLog() {
   Object.keys(localStorage).forEach((key) => {
     ipcRenderer.send('logPush', JSON.parse(localStorage.getItem(key)));
   });
   localStorage.clear();
-});
+}
 
 /**
  * 回数が更新された時に実行される
