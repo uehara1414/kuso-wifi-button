@@ -81,14 +81,14 @@ function sendJson(json) {
   return new Promise((resolve, reject) => {
     console.log(json);
     let options = {
-      uri: config.serverHost + '/honto-kuso',
+      uri: config.serverHost + '/honto-kuso/',
       headers: {
         "Content-type": "application/json",
       },
       json: json
     };
     request.post(options, (err, res, body) => {
-      if(!err) resolve(res.statusCode);
+      if(!err && res.statusCode == 200) resolve(res.statusCode);
       else reject();
     });
   });
