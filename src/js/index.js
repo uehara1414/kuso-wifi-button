@@ -60,6 +60,7 @@ ipcRenderer.on('clearLog', (event, flag) => {
   Object.keys(localStorage).forEach((key) => {
     ipcRenderer.send('logPush', JSON.parse(localStorage.getItem(key)));
   });
+  localStorage.clear();
 });
 
 /**

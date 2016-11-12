@@ -47,13 +47,13 @@ ipcMain.on('button', (event, comment) => {
       "ping": ms,
       "comment": comment
     };
-    if(!sendJson(json)) {
-      console.log("システムとのリンクの構築に失敗...蓄積");
-      event.sender.send('saveLog', json);
-    } else {
-      console.log("解放");
+    sendJson(json).then(function onFulfilled(value) {
+      console.log("送信成功");
       event.sender.send('clearLog', true);
-    }
+    }).catch(function onRejected(err) {
+      console.log("送信失敗");
+      event.sender.send('saveLog', json);
+    });
   });
   //カウントをフロントに投げる
   event.sender.send('count', count);
@@ -74,17 +74,18 @@ ipcMain.on('logPush', (event, json) => {
  * @return {boolean} 成功したらtrue
  */
 function sendJson(json) {
-  console.log(json);
-  let options = {
-    uri: config.serverHost,
-    headers: {
-      "Content-type": "application/json",
-    },
-    json: json
-  };
-  request.post(options, (err, res, body) => {
-    console.log(res.statusCode);
-    if(res.statusCode == 200) return true;
-    else false;
+  return new Promise((resolve, reject) => {
+    console.log(json);
+    let options = {
+      uri: config.serverHost,
+      headers: {
+        "Content-type": "application/json",
+      },
+      json: json
+    };
+    request.post(options, (err, res, body) => {
+      if(!err) resolve(res.statusCode);
+      else reject();
+    });
   });
 }
