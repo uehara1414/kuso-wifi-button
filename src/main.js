@@ -40,13 +40,11 @@ ipcMain.on('button', (event, comment) => {
   count++;
   let date = new Date();
   ping.send((err, ms) => {
-    let ping = (ms) ? ms : 0;
-    let ssid = (wifiControl.getIfaceState()['ssid']) ? wifiControl.getIfaceState()['ssid'] : '';
     let json = {
       "uid": uid,
       "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
-      "ssid": ssid,
-      "ping": ping,
+      "ssid": (wifiControl.getIfaceState()['ssid']) ? wifiControl.getIfaceState()['ssid'] : '',
+      "ping": (ms) ? ms : 0,
       "comment": comment
     };
     sendJson(json).then(function onFulfilled(value) {
