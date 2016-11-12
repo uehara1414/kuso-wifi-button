@@ -2,8 +2,10 @@
 某大学のWifiが繋がらないときに押すボタン
 
 ## Setup
-PLEASE RENAME `config/sample.json` to `config/default.json` AND WRITE `serverHost`.
+PLEASE WRITE `serverHost` in `config/default.json`.
+
 Example: config/default.json
+
     {
       "serverHost": "https://hogehoge.com"
     }

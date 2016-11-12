@@ -1,4 +1,8 @@
 const config = require('config');
+if(config.serverHost == '') {
+  console.log("Please write serverHost in default.json");
+  process.exit(1);
+}
 const menubar = require('menubar');
 const {ipcMain} = require('electron');
 const request = require('request');
