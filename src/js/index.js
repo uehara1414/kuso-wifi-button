@@ -77,3 +77,11 @@ function clearLog() {
 ipcRenderer.on('count', (event, count) => {
   counter.innerText = count;
 });
+
+
+/**
+ * アプリを終了する
+ */
+function exit() {
+  ipcRenderer.send('exit', true);
+}

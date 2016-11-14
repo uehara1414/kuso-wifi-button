@@ -5,6 +5,7 @@ if(config.serverHost == '') {
 }
 const menubar = require('menubar');
 const {ipcMain} = require('electron');
+const {app} = require('electron');
 const request = require('request');
 //Dateクラスの拡張
 require('date-utils');
@@ -93,3 +94,10 @@ function sendJson(json) {
     });
   });
 }
+
+/**
+ * 終了
+ */
+ipcMain.on('exit', (event, flag) => {
+  app.quit();
+});
