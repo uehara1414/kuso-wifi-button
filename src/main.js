@@ -25,7 +25,7 @@ var count = 0; //ボタンを押された回数
 
 const mb = menubar({
   dir:__dirname + '/',
-  icon:__dirname + '/poowifi.png',
+  icon:__dirname + `/poowifi_${process.platform}.png`,
   preloadWindow: true,
   windowPosition: 'trayLeft',
   width:200,
