@@ -52,10 +52,10 @@ ipcMain.on('button', (event, comment) => {
       "comment": comment
     };
     sendJson(json).then(function onFulfilled(value) {
-      console.log("送信成功");
+      console.log(value);
       event.sender.send('clearLog', true);
     }).catch(function onRejected(err) {
-      console.log("送信失敗");
+      console.log(err);
       event.sender.send('saveLog', json);
     });
   });
@@ -88,8 +88,8 @@ function sendJson(json) {
       json: json
     };
     request.post(options, (err, res, body) => {
-      if(!err && res.statusCode == 200) resolve(res.statusCode);
-      else reject();
+      if(!err && res.statusCode == 200) resolve(body);
+      else reject(err);
     });
   });
 }
