@@ -29,7 +29,7 @@ const mb = menubar({
   preloadWindow: true,
   windowPosition: 'trayLeft',
   width:200,
-  height:300,
+  height:275,
   resizable: true
 });
 mb.on('ready', () => {
