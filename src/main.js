@@ -23,6 +23,7 @@ const Ping = require('ping-lite');
 const ping = new Ping('8.8.8.8');
 
 var count = 0; //ボタンを押された回数
+var cacheSSID = ''; //直前のSSID
 
 const mb = menubar({
   dir:__dirname + '/',
@@ -48,15 +49,15 @@ ipcMain.on('button', (event, comment) => {
     let json = {
       "uid": uid,
       "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
-      "ssid": (wifiControl.getIfaceState()['ssid']) ? wifiControl.getIfaceState()['ssid'] : '',
+      "ssid": (wifiControl.getIfaceState()['ssid']) ?　cacheSSID = wifiControl.getIfaceState()['ssid'] : cacheSSID,
       "ping": (ms) ? ms : 0,
       "comment": comment
     };
     sendJson(json).then(function onFulfilled(value) {
-      console.log(value);
+      //console.log(value);
       event.sender.send('clearLog', true);
     }).catch(function onRejected(err) {
-      console.log(err);
+      //console.log(err);
       event.sender.send('saveLog', json);
     });
   });

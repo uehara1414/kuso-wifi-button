@@ -69,6 +69,7 @@ function clearLog() {
     ipcRenderer.send('logPush', JSON.parse(localStorage.getItem(key)));
   });
   localStorage.clear();
+  localCount = 0;
 }
 
 /**
