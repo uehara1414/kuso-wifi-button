@@ -44,6 +44,7 @@ function buttonStatus(status) {
  */
 function kusoButton() {
   ipcRenderer.send('button', comment.value);
+  comment.value = "";
 }
 
 /**
