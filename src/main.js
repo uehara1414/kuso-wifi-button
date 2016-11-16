@@ -31,8 +31,8 @@ const mb = menubar({
   preloadWindow: true,
   windowPosition: 'trayLeft',
   width:200,
-  height:275,
-  resizable: true
+  height:330,
+  resizable: false
 });
 mb.on('ready', () => {
   console.log("fun-wifi is kuso!");

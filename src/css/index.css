@@ -5,3 +5,7 @@
 .right {
     text-align: right;
 }
+
+#comment {
+    height: 5em;
+}
