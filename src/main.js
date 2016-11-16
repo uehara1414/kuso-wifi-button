@@ -5,6 +5,7 @@ if(config.serverHost == '') {
 }
 const menubar = require('menubar');
 const {ipcMain} = require('electron');
+const {app} = require('electron');
 const request = require('request');
 //Dateクラスの拡張
 require('date-utils');
@@ -22,15 +23,16 @@ const Ping = require('ping-lite');
 const ping = new Ping('8.8.8.8');
 
 var count = 0; //ボタンを押された回数
+var cacheSSID = ''; //直前のSSID
 
 const mb = menubar({
   dir:__dirname + '/',
-  icon:__dirname + '/poowifi.png',
+  icon:__dirname + `/poowifi_${process.platform}.png`,
   preloadWindow: true,
   windowPosition: 'trayLeft',
   width:200,
-  height:300,
-  resizable: true
+  height:330,
+  resizable: false
 });
 mb.on('ready', () => {
   console.log("fun-wifi is kuso!");
@@ -47,15 +49,15 @@ ipcMain.on('button', (event, comment) => {
     let json = {
       "uid": uid,
       "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
-      "ssid": (wifiControl.getIfaceState()['ssid']) ? wifiControl.getIfaceState()['ssid'] : '',
+      "ssid": (wifiControl.getIfaceState()['ssid']) ?　cacheSSID = wifiControl.getIfaceState()['ssid'] : cacheSSID,
       "ping": (ms) ? ms : 0,
       "comment": comment
     };
     sendJson(json).then(function onFulfilled(value) {
-      console.log("送信成功");
+      //console.log(value);
       event.sender.send('clearLog', true);
     }).catch(function onRejected(err) {
-      console.log("送信失敗");
+      //console.log(err);
       event.sender.send('saveLog', json);
     });
   });
@@ -88,8 +90,15 @@ function sendJson(json) {
       json: json
     };
     request.post(options, (err, res, body) => {
-      if(!err && res.statusCode == 200) resolve(res.statusCode);
-      else reject();
+      if(!err && res.statusCode == 200) resolve(body);
+      else reject(err);
     });
   });
 }
+
+/**
+ * 終了
+ */
+ipcMain.on('exit', (event, flag) => {
+  app.quit();
+});

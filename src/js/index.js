@@ -44,6 +44,7 @@ function buttonStatus(status) {
  */
 function kusoButton() {
   ipcRenderer.send('button', comment.value);
+  comment.value = "";
 }
 
 /**
@@ -69,6 +70,7 @@ function clearLog() {
     ipcRenderer.send('logPush', JSON.parse(localStorage.getItem(key)));
   });
   localStorage.clear();
+  localCount = 0;
 }
 
 /**
@@ -77,3 +79,11 @@ function clearLog() {
 ipcRenderer.on('count', (event, count) => {
   counter.innerText = count;
 });
+
+
+/**
+ * アプリを終了する
+ */
+function exit() {
+  ipcRenderer.send('exit', true);
+}
