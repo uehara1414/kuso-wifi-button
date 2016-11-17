@@ -1,6 +1,6 @@
 {
   "name": "kuso-wifi-button",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "某大学のWifiが繋がらないときに押すボタン",
   "main": "src/main.js",
   "scripts": {

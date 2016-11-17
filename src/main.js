@@ -1,8 +1,11 @@
+/*
+=== for develop ===
 const config = require('config');
 if(config.serverHost == '') {
   console.log("Please write serverHost in default.json");
   process.exit(1);
 }
+*/
 const menubar = require('menubar');
 const {ipcMain} = require('electron');
 const {app} = require('electron');
@@ -83,7 +86,7 @@ function sendJson(json) {
   return new Promise((resolve, reject) => {
     console.log(json);
     let options = {
-      uri: config.serverHost + '/honto-kuso/',
+      uri: "https://kuso-wifi.ga" + '/honto-kuso/',
       headers: {
         "Content-type": "application/json",
       },
