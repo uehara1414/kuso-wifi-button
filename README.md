@@ -1,5 +1,9 @@
 # kuso-wifi-button
-某大学のWifiが繋がらないときに押すボタン
+Wifiが繋がらないときに押して気ストレスを発散するためのボタン
+
+## 概要
+某大学のWifiがクソであることから生まれた、ストレスを目的としたボタンアプリです。
+現在の接続状況をWifiのssidとコメントとともに [Kuso Wifi Hub](https://kuso-wifi.ga) へ送信します。
 
 ## 開発
 
@@ -40,6 +44,13 @@ electron-packager . kuso-wifi-button --platform=darwin --version=1.4.5 --icon=sr
 # Linux
 electron-packager . kuso-wifi-button --platform=linux --version=1.4.5 --icon=src/poowifi.png
 ```
+
+## プルリクエスト
+こんなクソアプリですし、クソリプ送るような感覚でどしどし送ってください（マージするとは言っていない）。
+
+## 質問
+[issues](https://github.com/uehara1414/kuso-wifi-button/issues)にどうぞ。
+
 
 ## ライセンス
 [MIT](https://github.com/uehara1414/kuso-wifi-button/blob/master/LICENSE)
