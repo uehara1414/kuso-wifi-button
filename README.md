@@ -2,8 +2,10 @@
 Wifiが繋がらないときに押して気ストレスを発散するためのボタン
 
 ## 概要
-某大学のWifiがクソであることから生まれた、ストレスを目的としたボタンアプリです。
+某大学のWifiがクソであることから生まれた、ストレスを目的としたボタンアプリです。  
 現在の接続状況をWifiのssidとコメントとともに [Kuso Wifi Hub](https://kuso-wifi.ga) へ送信します。
+
+![kuso-wifi-button](https://github.com/uehara1414/kuso-wifi-button/blob/master/demo/kuso-wifi-button.gif?raw=true)
 
 ## 開発
 
