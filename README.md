@@ -2,10 +2,8 @@
 某大学のWifiが繋がらないときに押すボタン
 
 ## Setup
-PLEASE WRITE `serverHost` in `config/default.json`.
+PLEASE WRITE `serverHost` in `src/main.js` head.
 
-Example: config/default.json
+Example: src/main.js
 
-    {
-      "serverHost": "https://hogehoge.com"
-    }
+    const serverHost = "https://hogehoge.com";
