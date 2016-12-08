@@ -1,6 +1,5 @@
 # kuso-wifi-button
-Wifiが繋がらないときに押して気ストレスを発散するためのボタン
-
+Wifiが繋がらないときに押して気ストレスを発散するためのボタン。バイナリのダウンロードは[こちら](https://github.com/uehara1414/kuso-wifi-button/releases/tag/v1-beta)から
 ## 概要
 某大学のWifiがクソであることから生まれた、ストレスを目的としたボタンアプリです。  
 現在の接続状況をWifiのssidとコメントとともに [Kuso Wifi Hub](https://kuso-wifi.ga) へ送信します。
