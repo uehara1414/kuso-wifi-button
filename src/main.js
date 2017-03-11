@@ -1,4 +1,4 @@
-const serverHost = "https://kuso-wifi.ga";
+const serverHost = 'https://kuso-wifi.ga';
 
 const menubar = require('menubar');
 const {ipcMain} = require('electron');
@@ -19,8 +19,10 @@ wifiControl.init({
 const Ping = require('ping-lite');
 const ping = new Ping('8.8.8.8');
 
-var count = 0; //ボタンを押された回数
-var cacheSSID = ''; //直前のSSID
+const debug = require('debug')('electron');
+
+let count = 0; //ボタンを押された回数
+let cacheSSID = ''; //直前のSSID
 
 const mb = menubar({
   dir:__dirname + '/',
@@ -32,9 +34,8 @@ const mb = menubar({
   resizable: false
 });
 mb.on('ready', () => {
-  console.log("fun-wifi is kuso!");
+  debug('fun-wifi is kuso!');
 });
-
 
 /**
  * クソボタンを押されたら実行する
@@ -44,17 +45,17 @@ ipcMain.on('button', (event, comment) => {
   let date = new Date();
   ping.send((err, ms) => {
     let json = {
-      "uid": uid,
-      "date": date.toFormat("YYYY/MM/DD HH24:MI:SS"),
-      "ssid": (wifiControl.getIfaceState()['ssid']) ?　cacheSSID = wifiControl.getIfaceState()['ssid'] : cacheSSID,
-      "ping": (ms) ? ms : 0,
-      "comment": comment
+      'uid': uid,
+      'date': date.toFormat('YYYY/MM/DD HH24:MI:SS'),
+      'ssid': (wifiControl.getIfaceState()['ssid']) ? cacheSSID = wifiControl.getIfaceState()['ssid'] : cacheSSID,
+      'ping': (ms) ? ms : 0,
+      'comment': comment
     };
     sendJson(json).then(function onFulfilled(value) {
-      //console.log(value);
+      debug(value);
       event.sender.send('clearLog', true);
     }).catch(function onRejected(err) {
-      //console.log(err);
+      debug(err);
       event.sender.send('saveLog', json);
     });
   });
@@ -78,11 +79,11 @@ ipcMain.on('logPush', (event, json) => {
  */
 function sendJson(json) {
   return new Promise((resolve, reject) => {
-    console.log(json);
+    debug(json);
     let options = {
       uri: serverHost + '/honto-kuso/',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       json: json
     };
@@ -97,5 +98,6 @@ function sendJson(json) {
  * 終了
  */
 ipcMain.on('exit', (event, flag) => {
+  debug(flag);
   app.quit();
 });
