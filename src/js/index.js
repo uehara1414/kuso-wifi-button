@@ -1,10 +1,13 @@
-const {ipcRenderer} = require('electron')
+/*eslint no-unused-vars:0*/
 
-var button;
-var counter; //countを表示するエリア
-var comment;
-var netStatus = navigator.onLine;
-var localCount = 0; //ネット未接続時のボタンを押した回数
+const {ipcRenderer} = require('electron');
+const debug = require('debug')('front');
+
+let button;
+let counter; //countを表示するエリア
+let comment;
+let netStatus = navigator.onLine;
+let localCount = 0; //ネット未接続時のボタンを押した回数
 
 window.onload = () => {
   button = document.getElementById('button');
@@ -14,11 +17,11 @@ window.onload = () => {
   buttonStatus(netStatus);
 };
 
-window.addEventListener("online", () => {
+window.addEventListener('online', () => {
   netStatus = buttonStatus(true);
   clearLog();
 }, false);
-window.addEventListener("offline", () => {
+window.addEventListener('offline', () => {
   netStatus = buttonStatus(false);
 });
 
@@ -44,7 +47,7 @@ function buttonStatus(status) {
  */
 function kusoButton() {
   ipcRenderer.send('button', comment.value);
-  comment.value = "";
+  comment.value = '';
 }
 
 /**
@@ -59,6 +62,7 @@ ipcRenderer.on('saveLog', (event, json) => {
  * 全てのログを送り、ストレージをリセット
  */
 ipcRenderer.on('clearLog', (event, flag) => {
+  debug(flag);
   clearLog();
 });
 
