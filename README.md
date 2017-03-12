@@ -39,11 +39,11 @@ npm install -g electron-packager
 ### ビルド
 ```
 # Windows
-electron-packager . kuso-wifi-button --platform=win32 --electron-version=1.4.5 --icon=src/poowifi.ico
+electron-packager . kuso-wifi-button --platform=win32 --electron-version=1.4.5 --icon=./poowifi.ico
 # OSX
-electron-packager . kuso-wifi-button --platform=darwin --electron-version=1.4.5 --icon=src/poowifi.icns
+electron-packager . kuso-wifi-button --platform=darwin --electron-version=1.4.5 --icon=./poowifi.icns
 # Linux
-electron-packager . kuso-wifi-button --platform=linux --electron-version=1.4.5 --icon=src/poowifi.png
+electron-packager . kuso-wifi-button --platform=linux --electron-version=1.4.5 --icon=./poowifi.png
 ```
 
 ## プルリクエスト
